@@ -2,17 +2,27 @@ name: Project aligned task 1
 
 on:
   push:
+    # inputs:
+    #   environment:
+    #     description: 'Environment to run pipeline in different env'
+    #     type: choice
+    #     required: true
+    #     options:
+    #     - dev
+    #     - stage
+    #     - qa
+    #     - prod
   workflow_dispatch:
-      inputs:
-        environment:
-          description: 'Environment to run pipeline in different env'
-          type: choice
-          required: true
-          options:
-          - dev
-          - stage
-          - qa
-          - prod
+    inputs:
+      environment:
+        description: 'Environment to run pipeline in different env'
+        type: choice
+        required: true
+        options:
+        - dev
+        - stage
+        - qa
+        - prod
 
 env:
   # cfn_s3_file_path: 
