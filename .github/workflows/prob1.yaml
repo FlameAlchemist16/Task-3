@@ -1,0 +1,33 @@
+name: Project aligned task 1
+
+on:
+  push:
+  workflow_dispatch:
+      inputs:
+        environment:
+          description: 'Environment to run pipeline in different env'
+          type: choice
+          required: true
+          options:
+          - dev
+          - stage
+          - qa
+          - prod
+
+env:
+  # cfn_s3_file_path: 
+  app_name: ${{inputs.environment}}-app
+  service_name: ${{inputs.environment}}-service
+  # cfn_params_path:
+
+jobs:
+  job1:
+    name: checkout branch
+    runs-on: ubuntu-latest
+    steps:
+      - name: Getting code
+        uses: actions/checkout@v4
+      - name: Printing environment variables
+        run: |
+          echo ${{env.app_name}}
+          echo ${{env.service_name}}
