@@ -2,21 +2,14 @@ name: Project aligned task 1
 
 on:
   push:
-    # inputs:
-    #   environment:
-    #     description: 'Environment to run pipeline in different env'
-    #     type: choice
-    #     required: true
-    #     options:
-    #     - dev
-    #     - stage
-    #     - qa
-    #     - prod
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       environment:
         description: 'Environment to run pipeline in different env'
         type: choice
+        default: 'dev'
         required: true
         options:
         - dev
@@ -25,19 +18,22 @@ on:
         - prod
 
 env:
-  # cfn_s3_file_path: 
-  app_name: ${{inputs.environment}}-app
-  service_name: ${{inputs.environment}}-service
-  # cfn_params_path:
+  CFN_S3_FILE_PATH: ${{inputs.environment}}-s3-path
+  APP_NAME: ${{inputs.environment}}-app
+  SERVICE_NAME: ${{inputs.environment}}-service
+  CFN_PARAMS_PATH: ${{inputs.environment}}-param-path
 
 jobs:
   job1:
-    name: checkout branch
+    name: Setup Env Variables
     runs-on: ubuntu-latest
     steps:
       - name: Getting code
         uses: actions/checkout@v4
-      - name: Printing environment variables
+      - name: Setting up environment variables
         run: |
-          echo ${{env.app_name}}
-          echo ${{env.service_name}}
+          echo "CFN_S3_FILE_PATH=${CFN_S3_FILE_PATH}" >> $GITHUB_ENV
+          echo "APP_NAME=${APP_NAME}" >> $GITHUB_ENV
+          echo "SERVICE_NAME=${SERVICE_NAME}" >> $GITHUB_ENV
+          echo "CFN_PARAMS_PATH=${CFN_PARAMS_PATH}" >> $GITHUB_ENV
+
