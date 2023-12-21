@@ -36,4 +36,3 @@ jobs:
           echo "APP_NAME=${APP_NAME}" >> $GITHUB_ENV
           echo "SERVICE_NAME=${SERVICE_NAME}" >> $GITHUB_ENV
           echo "CFN_PARAMS_PATH=${CFN_PARAMS_PATH}" >> $GITHUB_ENV
-
